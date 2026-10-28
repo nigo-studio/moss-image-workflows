@@ -659,7 +659,7 @@
       "outputs": [],
       "properties": {},
       "widgets_values": [
-        "MOSS-Image（SFT・int8）pixelgnarly.com の記事で使ったワークフロー\n\n入れるファイル（Comfy-Org/MOSS-Image で配布）\n- models/diffusion_models/moss_image_sft_int8_convrot.safetensors\n- models/text_encoders/qwen3.5_9b_int8_convrot.safetensors\n- models/vae/flux2-vae.safetensors\n\n設定は ComfyUI の標準テンプレートと同じ（25ステップ・CFG 2.5・er_sde・simple・Skip Layer Guidance 層22を前半50%）。\n配置を決めたJSONは、下の「Text (Multiline)」ノードに入っています。座標は画像の中心を0にした画素（yxyx）です。\nJSONを CLIPTextEncode の欄に直接貼らないでください。画面から実行すると { } がランダム選択の記号として消され、配置が壊れます。\nseed を固定してあるので、同じ環境なら記事の作例とほぼ同じ絵が出ます。"
+        "MOSS-Image（SFT・int8）pixelgnarly.com の記事で使ったワークフロー\n\n入れるファイル（Comfy-Org/MOSS-Image で配布）\n- models/diffusion_models/moss_image_sft_int8_convrot.safetensors\n- models/text_encoders/qwen3.5_9b_int8_convrot.safetensors\n- models/vae/flux2-vae.safetensors\n\n設定は ComfyUI の標準テンプレートと同じ（25ステップ・CFG 2.5・er_sde・simple・Skip Layer Guidance 層22を前半50%）。\n配置を決めたJSONは、下の「Text (Multiline)」ノードに入っています。座標は画像の中心を0にした画素（yxyx）です。\nJSONを CLIPTextEncode の欄に直接貼らないでください。画面から実行すると { } がランダム選択の記号として消され、書いたJSONとは別の文が渡ります（エラーは出ません）。\nseed を固定してあるので、同じ環境なら記事の作例とほぼ同じ絵が出ます。"
       ],
       "color": "#432",
       "bgcolor": "#653"

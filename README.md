@@ -40,7 +40,7 @@ Settings match the official ComfyUI template: 25 steps, CFG 2.5, `er_sde` / `sim
 
 ### Keep the JSON out of the prompt box
 
-The layout JSON sits in a **Text (Multiline)** node wired into `CLIPTextEncode`. Don't paste it straight into the `CLIPTextEncode` box: when you run from the UI, ComfyUI reads `{ }` there as dynamic-prompt syntax ("pick one at random") and strips the braces, and the layout silently stops working.
+The layout JSON sits in a **Text (Multiline)** node wired into `CLIPTextEncode`. Don't paste it straight into the `CLIPTextEncode` box: when you run from the UI, ComfyUI reads `{ }` there as dynamic-prompt syntax ("pick one at random") and strips the braces, so the model gets different text from the JSON you wrote, and any `|` inside braces picks one option at random. There is no error. In our test the panels still landed (4 px average over four seeds, brace-stripped), but the wired Text node passes the JSON exactly as written.
 
 ### Coordinates
 
@@ -83,7 +83,7 @@ and swap the story for "lending an umbrella at a rainy station". Dialogue in Jap
 測った数字や作例は、記事にまとめています: [pixelgnarly.com — MOSS-Imageの使い方](https://pixelgnarly.com/moss-image-comfyui/)
 
 - `workflows/` の `.json` をComfyUIの画面にドラッグして実行。同じモデルとseedなら、記事の作例と同じ絵が出ます。
-- JSONは「Text (Multiline)」ノードに入れて、線で `CLIPTextEncode` につないであります。`CLIPTextEncode` の欄に直接貼ると、画面から実行したときに `{ }` が消えて配置が効かなくなります。
+- JSONは「Text (Multiline)」ノードに入れて、線で `CLIPTextEncode` につないであります。`CLIPTextEncode` の欄に直接貼ると、画面から実行したときに `{ }` が消え、書いたJSONとは別の文が渡ります（エラーは出ません）。
 - 導入をClaude Codeに任せるなら、上の「Let Claude Code set it up」の文をそのまま貼れます（英語のままで大丈夫です）。
 
 ## License

@@ -25,7 +25,7 @@ Both are flat graphs (no subgraphs): UNETLoader → SkipLayerGuidanceDiTSimple �
 
 ## Rules when editing
 
-- Keep the JSON in the Text (Multiline) node. Never move it into the CLIPTextEncode widget: the UI's dynamic-prompt pass strips `{ }` there and the layout breaks without an error.
+- Keep the JSON in the Text (Multiline) node. Never move it into the CLIPTextEncode widget: the UI's dynamic-prompt pass strips `{ }` there (and resolves any `{a|b}` at random), so the model receives different text from what was written, with no error.
 - To reuse a layout, keep every `bbox` and change only captions and `text`. Change boxes only when the user asks for a different composition, and then keep the canvas size in sync with EmptyFlux2LatentImage.
 - Keep text short (a phrase per box). Small or dense kanji break; tell the user to proofread every character.
 - People are adults; say so in the captions. In the swimwear workflow keep the negative prompt as is — it names what must not appear (nudity, see-through fabric, underage cues) instead of relying on `nsfw`.
