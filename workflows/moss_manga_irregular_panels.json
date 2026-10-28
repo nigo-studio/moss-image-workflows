@@ -1,0 +1,810 @@
+{
+  "revision": 0,
+  "last_node_id": 12,
+  "last_link_id": 11,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "UNETLoader",
+      "pos": [
+        0,
+        0
+      ],
+      "size": [
+        330,
+        82
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "unet_name",
+          "name": "unet_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "unet_name"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "重みdtype",
+          "name": "weight_dtype",
+          "type": "COMBO",
+          "widget": {
+            "name": "weight_dtype"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "モデル",
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            10
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UNETLoader"
+      },
+      "widgets_values": [
+        "moss_image_sft_int8_convrot.safetensors",
+        "default"
+      ],
+      "widgets_values_named": {
+        "unet_name": "moss_image_sft_int8_convrot.safetensors",
+        "weight_dtype": "default"
+      }
+    },
+    {
+      "id": 2,
+      "type": "CLIPLoader",
+      "pos": [
+        0,
+        140
+      ],
+      "size": [
+        330,
+        106
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "clip名",
+          "name": "clip_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "clip_name"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "タイプ",
+          "name": "type",
+          "type": "COMBO",
+          "widget": {
+            "name": "type"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "デバイス",
+          "name": "device",
+          "shape": 7,
+          "type": "COMBO",
+          "widget": {
+            "name": "device"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "CLIP",
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            1,
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPLoader"
+      },
+      "widgets_values": [
+        "qwen3.5_9b_int8_convrot.safetensors",
+        "moss_image",
+        "default"
+      ],
+      "widgets_values_named": {
+        "clip_name": "qwen3.5_9b_int8_convrot.safetensors",
+        "type": "moss_image",
+        "device": "default"
+      }
+    },
+    {
+      "id": 3,
+      "type": "VAELoader",
+      "pos": [
+        0,
+        300
+      ],
+      "size": [
+        330,
+        58
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "vae_name",
+          "name": "vae_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "vae_name"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "VAE",
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            8
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "flux2-vae.safetensors"
+      ],
+      "widgets_values_named": {
+        "vae_name": "flux2-vae.safetensors"
+      }
+    },
+    {
+      "id": 4,
+      "type": "CLIPTextEncode",
+      "pos": [
+        370,
+        190
+      ],
+      "size": [
+        380,
+        300
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "クリップ",
+          "name": "clip",
+          "type": "CLIP",
+          "link": 1
+        },
+        {
+          "localized_name": "テキスト",
+          "name": "text",
+          "type": "STRING",
+          "widget": {
+            "name": "text"
+          },
+          "link": 11
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "条件付け",
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            4
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "widgets_values_named": {
+        "text": "Photorealistic Japanese gravure photobook photograph, a close, intimate portrait-style frame of a fictional Japanese woman in her mid-20s on all fours on a wooden floor, facing the camera, shot by a professional gravure photographer. Every detail of the person is rendered with high-end editorial quality; the background is only a soft blur.\n\nPose and expression: she is on all fours facing the lens head-on. Both arms are straight and vertical, palms flat on the floorboards about shoulder width apart, fingers relaxed and slightly spread. Her knees rest on the floor slightly apart below her hips. Her torso leans forward toward the camera so her shoulders come just ahead of her hands, her back gently arched, her chest close to the lens. Her head is level with a slight tilt to her left, and she looks straight into the lens with a bright, open smile that shows her upper teeth, her eyes slightly narrowed by the smile, cheeks lifted, a small dimple on her left cheek. The expression feels candid, like she has just laughed at something the photographer said.\n\nLingerie: a pale heather-gray soft-cup plunge bra with thin adjustable straps, smooth matte microfiber cups with opaque lining, a delicate gray lace trim along the upper edge of the cups and a tiny satin bow at the center gore; matching pale gray briefs with the same lace trim, mostly hidden by her pose. The straps sit straight over the tops of her shoulders with slight tension, leaving faint soft impressions on the skin. The fabric shows a fine knit texture and a soft sheen where the light hits it.\n\nFace: a soft oval face with gentle cheekbones and a softly rounded jawline. Naturally full, gently arched dark brown brows with individual hairs visible. Double eyelids with a natural crease, slightly downturned eyes, a faint natural puffiness under the lower lashes (aegyo-sal). Small straight nose with a soft rounded tip and a tiny highlight on the bridge. Full lips in a natural rosy pink with a light sheer gloss, fine vertical lip lines visible, a small highlight on the center of the lower lip. Minimal fresh makeup: thin brown eyeliner close to the lash line, separated natural lashes, a soft peach blush high on the cheeks.\n\nEyes: warm dark brown irises with visible radial fibers and subtle lighter amber flecks around the pupil, a thin darker limbal ring at the edge of each iris, clear round pupils, and wet, glossy eyes. Each eye holds a crisp rectangular catchlight from the window at the upper right of the iris and a fainter secondary catchlight from the floor bounce at the lower edge. The whites of the eyes are natural, slightly warm, with a soft moist highlight along the lower waterline. Upper lashes are dark and naturally curled, lower lashes fine and sparse, each lash individually resolved. Both eyes are in perfect sharp focus.\n\nSkin: realistic Japanese skin with a natural light-medium warm tone. Fine visible pores on the nose, cheeks and forehead, very fine vellus peach fuzz on the cheeks and jawline that catches the window light as a faint glow along the edge of her face. Subtle natural unevenness: slightly rosier tones on the tip of the nose, the cheeks, the knuckles, the elbows and the knees, faint bluish undertones at the inner wrists and the hollows of the collarbones. A healthy natural sheen on the high points: forehead, nose bridge, cheekbones, the tops of the shoulders and the collarbones, with soft specular highlights that roll off gently instead of looking plastic. Two or three tiny natural moles on the neck and shoulder. Gentle subsurface scattering: light glows warmly through the edges of her ears and between her fingers. Natural skin creases at the knuckles and wrists, and soft fine lines at the outer corners of the eyes when she smiles. Nothing airbrushed, no plastic smoothness, no heavy retouching.\n\nHair: a chin-length dark brown bob, cut bluntly at jaw level, with side-swept see-through bangs falling from a soft left part across her right brow. Individual strands are clearly resolved, with a natural silky sheen in a soft band of highlight across the crown, a few fine flyaway hairs lit up by the window as thin bright lines, and the ends curving slightly inward around her cheeks and swaying forward with her pose. Only the lobe of her left ear shows, with a tiny silver stud earring.\n\nBody: slim natural adult proportions, softly defined collarbones that catch the light, rounded relaxed shoulders, slender arms with a soft natural shape and a faint highlight along the outer side facing the window, straight wrists with the heels of her palms pressing lightly into the wood, short natural nails with sheer pale pink polish, and a thin silver chain bracelet on her right wrist.\n\nLighting: the key light is large soft diffused daylight from a tall window on the right side of the frame, slightly above her eye level, at about 5200K. It wraps across her face from right to left, leaving a gentle gradient of shadow on the left side of her face and neck. A faint warm rim of light outlines the right edge of her hair, her right shoulder and her right arm. Warm light bouncing up from the honey-colored floor fills the shadows under her chin, under her arms and inside the cups' upper edge, giving the skin a warm glow. Soft open shadows, never harsh; gentle contrast that sculpts the collarbones, the cheekbones and the line of the shoulders.\n\nCamera and focus: full-frame camera, 85mm lens at f/1.8, the photographer kneeling at her eye height a little over a meter away. Vertical frame from just above the top of her head down to her knees and hands. Razor-sharp focus on her eyes, eyelashes and the front of her face; her shoulders and hands are sharp, her knees fall slightly soft, and everything behind her dissolves into smooth creamy bokeh.\n\nBackground: a lived-in small apartment kitchen, completely out of focus: a light gray refrigerator on the left, a white water dispenser with a blue bottle on the right, a pale curtain behind her, and a warm honey-brown wooden floor with a soft sheen.\n\nColor and finish: warm natural color grading reminiscent of Kodak Portra 400, healthy natural skin tones, gentle film grain, soft highlight roll-off, slightly lifted blacks, rich but soft contrast. One woman, a single photographic frame, no text, no watermark."
+      }
+    },
+    {
+      "id": 5,
+      "type": "CLIPTextEncode",
+      "pos": [
+        370,
+        520
+      ],
+      "size": [
+        380,
+        110
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "クリップ",
+          "name": "clip",
+          "type": "CLIP",
+          "link": 2
+        },
+        {
+          "localized_name": "テキスト",
+          "name": "text",
+          "type": "STRING",
+          "widget": {
+            "name": "text"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "条件付け",
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            5
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "nsfw, worst quality, bad anatomy, watermark, jpeg artifact"
+      ],
+      "widgets_values_named": {
+        "text": "nsfw, worst quality, bad anatomy, watermark, jpeg artifact"
+      }
+    },
+    {
+      "id": 6,
+      "type": "EmptyFlux2LatentImage",
+      "pos": [
+        0,
+        410
+      ],
+      "size": [
+        330,
+        106
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "幅",
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "高さ",
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "バッチサイズ",
+          "name": "batch_size",
+          "type": "INT",
+          "widget": {
+            "name": "batch_size"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "潜在",
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            6
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyFlux2LatentImage"
+      },
+      "widgets_values": [
+        1024,
+        1536,
+        1
+      ],
+      "widgets_values_named": {
+        "width": 1600,
+        "height": 2256,
+        "batch_size": 1
+      }
+    },
+    {
+      "id": 7,
+      "type": "KSampler",
+      "pos": [
+        790,
+        0
+      ],
+      "size": [
+        300,
+        262
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "モデル",
+          "name": "model",
+          "type": "MODEL",
+          "link": 3
+        },
+        {
+          "localized_name": "ポジティブ",
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 4
+        },
+        {
+          "localized_name": "ネガティブ",
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 5
+        },
+        {
+          "localized_name": "潜在画像",
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 6
+        },
+        {
+          "localized_name": "シード",
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "ステップ",
+          "name": "steps",
+          "type": "INT",
+          "widget": {
+            "name": "steps"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "cfg",
+          "name": "cfg",
+          "type": "FLOAT",
+          "widget": {
+            "name": "cfg"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "サンプラー名",
+          "name": "sampler_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "sampler_name"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "スケジューラ",
+          "name": "scheduler",
+          "type": "COMBO",
+          "widget": {
+            "name": "scheduler"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "ノイズ除去",
+          "name": "denoise",
+          "type": "FLOAT",
+          "widget": {
+            "name": "denoise"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "潜在",
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            7
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        42,
+        "fixed",
+        25,
+        2.5,
+        "er_sde",
+        "simple",
+        1
+      ],
+      "widgets_values_named": {
+        "seed": 2026,
+        "control_after_generate": "fixed",
+        "steps": 25,
+        "cfg": 2.5,
+        "sampler_name": "er_sde",
+        "scheduler": "simple",
+        "denoise": 1
+      }
+    },
+    {
+      "id": 8,
+      "type": "VAEDecode",
+      "pos": [
+        790,
+        340
+      ],
+      "size": [
+        300,
+        46
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "サンプル",
+          "name": "samples",
+          "type": "LATENT",
+          "link": 7
+        },
+        {
+          "localized_name": "vae",
+          "name": "vae",
+          "type": "VAE",
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "画像",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            9
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      }
+    },
+    {
+      "id": 9,
+      "type": "SaveImage",
+      "pos": [
+        790,
+        440
+      ],
+      "size": [
+        300,
+        260
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "画像",
+          "name": "images",
+          "type": "IMAGE",
+          "link": 9
+        },
+        {
+          "localized_name": "ファイル名_プレフィックス",
+          "name": "filename_prefix",
+          "type": "STRING",
+          "widget": {
+            "name": "filename_prefix"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "images",
+          "name": "images",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "moss/pixelgnarly/manga_irregular_panels"
+      ],
+      "widgets_values_named": {
+        "filename_prefix": "moss/r7/person_natural_s2026"
+      }
+    },
+    {
+      "id": 10,
+      "type": "SkipLayerGuidanceDiTSimple",
+      "pos": [
+        370,
+        0
+      ],
+      "size": [
+        380,
+        130
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "モデル",
+          "name": "model",
+          "type": "MODEL",
+          "link": 10
+        },
+        {
+          "localized_name": "二重レイヤー",
+          "name": "double_layers",
+          "type": "STRING",
+          "widget": {
+            "name": "double_layers"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "単一レイヤー",
+          "name": "single_layers",
+          "type": "STRING",
+          "widget": {
+            "name": "single_layers"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "開始パーセンテージ",
+          "name": "start_percent",
+          "type": "FLOAT",
+          "widget": {
+            "name": "start_percent"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "終了パーセンテージ",
+          "name": "end_percent",
+          "type": "FLOAT",
+          "widget": {
+            "name": "end_percent"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "モデル",
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SkipLayerGuidanceDiTSimple"
+      },
+      "widgets_values": [
+        "",
+        "22",
+        0,
+        0.5
+      ],
+      "widgets_values_named": {
+        "double_layers": "",
+        "single_layers": "22",
+        "start_percent": 0,
+        "end_percent": 0.5
+      }
+    },
+    {
+      "id": 11,
+      "type": "Note",
+      "pos": [
+        0,
+        560
+      ],
+      "size": [
+        340,
+        420
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "MOSS-Image（SFT・int8）pixelgnarly.com の記事で使ったワークフロー\n\n入れるファイル（Comfy-Org/MOSS-Image で配布）\n- models/diffusion_models/moss_image_sft_int8_convrot.safetensors\n- models/text_encoders/qwen3.5_9b_int8_convrot.safetensors\n- models/vae/flux2-vae.safetensors\n\n設定は ComfyUI の標準テンプレートと同じ（25ステップ・CFG 2.5・er_sde・simple・Skip Layer Guidance 層22を前半50%）。\n配置を決めたJSONは、下の「Text (Multiline)」ノードに入っています。座標は画像の中心を0にした画素（yxyx）です。\nJSONを CLIPTextEncode の欄に直接貼らないでください。画面から実行すると { } がランダム選択の記号として消され、配置が壊れます。\nseed を固定してあるので、同じ環境なら記事の作例とほぼ同じ絵が出ます。"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 12,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        370,
+        760
+      ],
+      "size": [
+        420,
+        420
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "STRING",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "{\"summary\":{\"meta\":[\"manga\"],\"canvas\":\"single\",\"caption\":\"A single full-color Japanese manga page, polished modern anime art style with soft cel shading, panels with thin black borders separated by clean white gutters, read from right to left and top to bottom. All characters are adults. Fantasy story in a forest at dusk.\"},\"items\":[{\"label\":\"object\",\"caption\":\"Panel 1, a thin horizontal panel across the top: a deep forest at dusk with fireflies, seen from far away.\",\"bbox\":[-738,-492,-583,492]},{\"label\":\"text\",\"caption\":\"Horizontal Japanese narration text in a white box at the left of panel 1.\",\"text\":\"森の奥で、それは目を覚ました。\",\"bbox\":[-715,-472,-606,62]},{\"label\":\"object\",\"caption\":\"Panel 2, a large panel on the left: an adult elf mage woman in her 20s with long silver hair and a green robe raises a glowing staff, a giant tree spirit looming behind her.\",\"bbox\":[-553,-492,277,246]},{\"label\":\"text\",\"caption\":\"White speech bubble with black vertical Japanese text in panel 2.\",\"text\":\"来るわ…！\",\"bbox\":[-507,20,-107,144]},{\"label\":\"object\",\"caption\":\"Panel 3, a small inset panel with a white border overlapping the lower-left corner of panel 2: an extreme close-up of her eyes glowing green.\",\"bbox\":[-31,-466,246,-184]},{\"label\":\"object\",\"caption\":\"Panel 4, a tall narrow panel on the right: a giant ancient tree with a glowing face, shown full height from roots to crown.\",\"bbox\":[-553,266,277,492]},{\"label\":\"text\",\"caption\":\"Large bold hand-drawn manga sound effect in vertical katakana, black with a white outline.\",\"text\":\"ズズズ\",\"bbox\":[-507,307,-30,461]},{\"label\":\"object\",\"caption\":\"Panel 5, a wide panel at the bottom left: a bright magic circle blast clashes with huge twisting tree roots.\",\"bbox\":[307,-492,738,144]},{\"label\":\"text\",\"caption\":\"White speech bubble with black vertical Japanese text in panel 5.\",\"text\":\"光よ、道を開け！\",\"bbox\":[337,-52,707,72]},{\"label\":\"object\",\"caption\":\"Panel 6, a panel at the bottom right: a small white fox spirit peeks out from behind a rock, looking innocent.\",\"bbox\":[307,163,738,492]},{\"label\":\"text\",\"caption\":\"White speech bubble with black vertical Japanese text in panel 6.\",\"text\":\"…ぼく、何もしてないよ？\",\"bbox\":[337,368,707,477]},{\"label\":\"object\",\"caption\":\"The fox spirit's fluffy tail breaks out of the right border of the bottom right panel into the page margin.\",\"bbox\":[399,440,615,512]}],\"bbox_coord_space\":\"abs_centralized\",\"bbox_format\":\"yxyx\"}"
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      4,
+      0,
+      "CLIP"
+    ],
+    [
+      2,
+      2,
+      0,
+      5,
+      0,
+      "CLIP"
+    ],
+    [
+      3,
+      10,
+      0,
+      7,
+      0,
+      "MODEL"
+    ],
+    [
+      4,
+      4,
+      0,
+      7,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      5,
+      5,
+      0,
+      7,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      6,
+      6,
+      0,
+      7,
+      3,
+      "LATENT"
+    ],
+    [
+      7,
+      7,
+      0,
+      8,
+      0,
+      "LATENT"
+    ],
+    [
+      8,
+      3,
+      0,
+      8,
+      1,
+      "VAE"
+    ],
+    [
+      9,
+      8,
+      0,
+      9,
+      0,
+      "IMAGE"
+    ],
+    [
+      10,
+      1,
+      0,
+      10,
+      0,
+      "MODEL"
+    ],
+    [
+      11,
+      12,
+      0,
+      4,
+      1,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.58,
+      "offset": [
+        144.82758620689657,
+        203.44827586206898
+      ]
+    }
+  },
+  "version": 0.4
+}
